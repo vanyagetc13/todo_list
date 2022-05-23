@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/fd813626e6.js" crossorigin="anonymous"></script>
+    <title>todo-list</title>
+</head>
+<body>
+	<!-- Создание таски -->
+	<div class="pop_up_task" id="pop_up_task_create">
+		<div class="pop_up_task_cont">
+			<div class="pop_up_task_body">
+				<div class="pop_up_topper">
+					<h3 class="pop_up_task_h">Добавить новую задачу</h3>
+					<div class="dropdown">
+						<button id="pop_up_create_task_pattern" class="dropdown__button">Выбрать шаблон</button>
+						<ul class="dropdown__list">
+							<li class="dropdown__list-item" data-value="choose">Выбрать шаблон</li>
+							<li class="dropdown__list-item" data-value="1">1</li>
+							<li class="dropdown__list-item" data-value="2">2</li>
+							<li class="dropdown__list-item" data-value="3">3</li>
+							<li class="dropdown__list-item" data-value="4">4</li>
+						</ul>
+						<input type="text" name="dropdown_task_creation" value="choose" class="dropdown__input-hidden" id="pattern_input">
+					</div>
+				</div>
+				<div class="pop_up_main">
+					<div class="pop_up_task_description">
+						<p class="pop_up_task_description_p">Что нужно сделать?</p>
+						<input type="text" name="dropdown_task_creation" class="pop_up_task_create_description" value="Опишите задачу" id="description_input">
+					</div>
+					<div class="pop_up_task_params_wrapper">
+						<div>
+							<p class="pop_up_task_description_p">Категория</p>
+							<div class="dropdown">
+								<button id="pop_up_create_task_category" class="dropdown__button">Выбрать</button>
+								<ul class="dropdown__list">
+									<li class="dropdown__list-item" data-value="choose">Выбрать</li>
+									<li class="dropdown__list-item" data-value="home">Дом</li>
+									<li class="dropdown__list-item" data-value="family">Семья</li>
+									<li class="dropdown__list-item" data-value="work">Работа</li>
+									<li class="dropdown__list-item" data-value="sport">Спорт</li>
+								</ul>
+								<input type="text" name="dropdown_task_creation" value="choose" class="dropdown__input-hidden" id="category_input">
+							</div>
+						</div>
+						<div>
+							<p class="pop_up_task_description_p">Когда?</p>
+							<input type="date" name="dropdown_task_creation" class="pop_up_create_task_date" id="date_input">
+						</div>
+						<div>
+							<p class="pop_up_task_description_p">Приоритет задачи</p>
+							<div class="dropdown">
+								<button id="pop_up_create_task_priority" class="dropdown__button">Выбрать</button>
+								<ul class="dropdown__list">
+									<li class="dropdown__list-item" data-value="choose">Выбрать</li>
+									<li class="dropdown__list-item" data-value="red">Очень важно</li>
+									<li class="dropdown__list-item" data-value="orange">Важно</li>
+									<li class="dropdown__list-item" data-value="blue">Не очень важно</li>
+									<li class="dropdown__list-item" data-value="grey">Не важно</li>
+								</ul>
+								<input type="text" name="dropdown_task_creation" value="choose" class="dropdown__input-hidden" id="priority_input">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="pop_up_btns">
+					<button class="danger_btn" id="pop_up_create_task_cancel_btn">Отменить</button>
+					<button class="secondary_btn">Сохранить как шаблон</button>
+					<button class="primary_btn" id="pop_up_create_task_add_btn">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ЕДИТ таски -->
+	<div class="pop_up_task" id="pop_up_task_edit">
+		<div class="pop_up_task_cont">
+			<div class="pop_up_task_body">
+				<div class="pop_up_topper">
+					<h3 class="pop_up_task_h">Изменение задачи</h3>
+				</div>
+				<div class="pop_up_main" id="pop_up_task_edit_main">
+					
+				</div>
+				<div class="pop_up_btns between">
+					<button class="danger_btn" id="edit_cancel_btn">Отменить</button>
+					<button class="secondary_btn" id="edit_submit_btn">Изменить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- КОНЕЦ ПОП_АПОВ -->
+  	<aside class="aside">
+        <nav class="nav">
+            <section>
+                <div class="logo_wrapper"><img src="./img/logo.svg" alt="logo"></div>
+                <h1 class="logo_h">Tasks<br>Book</h1>
+			</section>
+            <section class="categories_wrapper">
+                <h2 class="nav_subt">Категории</h2>
+
+                <ul class="categories_list">
+                    <li class="active"><a href="#"><i class="fa-solid fa-house pad-right-10"></i> Дом</a></li>
+                    <li><a href="#"><i class="fa-solid fa-people-group pad-right-10"></i>Семья</a></li>
+                    <li><a href="#"><i class="fa-solid fa-briefcase pad-right-10"></i>Работа</a></li>
+                    <li><a href="#"><i class="fa-solid fa-bolt pad-right-10"></i>Спорт</a></li>
+                    <li class="add_category"><a href="#"><i class="fa-solid fa-square-plus pad-right-10"></i> Добавить</a></li>
+                </ul>
+            </section>
+            <section class="data_wrapper">
+                <h2 class="nav_subt">Данные</h2>
+                <ul class="data_list">
+                    <li><a href="#"><i class="fa-solid fa-chart-simple pad-right-10"></i>Статистика</a></li>
+                    <li><a href="#"><i class="fa-solid fa-arrow-trend-up pad-right-10"></i>Сравнить</a></li>
+                </ul>
+            </section>
+            <section>
+                <a class="nav_exit" href="#"><i class="fa-solid fa-arrow-right-to-bracket pad-right-10"></i>Выйти</a>
+            </section>
+        </nav>
+  	</aside>
+    <section class="main_helper">
+        <header class="header">
+            <button class="add_task" id="add_task_btn"><i class="fa-solid fa-circle-plus pad-right-10"></i>Новая задача</button>
+            <i class="fa-regular fa-moon theme_change"></i>
+            <div class="header_profile">
+                <p class="profile_good-day">Хорошего дня, Анна</p>
+                <div class="profile_link"><img class="profile_icon" src="./img/woman.png" alt="avatar">
+                <i class="fa-solid fa-chevron-down pr_ic"></i></div>
+            </div>
+        </header>
+		
+        <section class="main">
+            <div class="column column-1">
+				<div class="weekly_achivs div_main_all">
+					<div class="achivs_topper">
+							<h3 class="achivs_subt">Успехи за неделю</h3>
+							<i class="fa-solid fa-ellipsis"></i>
+					</div>
+					<div class="achivs_main">
+							<div class="achiv_mini-div">
+									<h3 class="achiv_name">Создано</h3>
+									<div class="achiv_circle">
+											<p class="achiv_number" id="achiv_created"></p>
+											<p class="achiv_zadach">задач</p>
+									</div>
+							</div>
+							<div class="achiv_mini-div">
+									<h3 class="achiv_name">Завершено</h3>
+									<div class="achiv_circle">
+											<p class="achiv_number" id="achiv_completed">97</p>
+											<p class="achiv_zadach">задач</p>
+									</div>
+							</div>
+							<div class="achiv_mini-div">
+									<h3 class="achiv_name">Удалено</h3>
+									<div class="achiv_circle">
+											<p class="achiv_number" id="achiv_deleted">14</p>
+											<p class="achiv_zadach">задач</p>
+									</div>
+							</div>
+					</div>
+				</div>
+				<div class="todo_list_div div_main_all">
+					<div class="current_tasks">
+						<div class="topper">
+							<h3 class="current_tasks_h">Активные задачи</h3>
+							<i class="fa-solid fa-ellipsis"></i>
+						</div>
+						<div class="current_tasks_main" id="current_tasks_main">
+							
+						</div>
+					</div>
+					<div class="completed_tasks">
+						<div class="topper"><h3 class="completed_tasks_h">Завершенные задачи</h3></div>
+						<div class="completed_tasks_main" id="completed_tasks_main">
+							
+						</div>
+					</div>
+				</div>
+            </div> <!--  END OF FIRST COLUMN -->
+            <div class="column column-2">
+				<div class="date_div div_main_all">
+					<h3 class="date_div_subt">Такс такс такс</h3>	
+					<div class="date_showers_wrapper">
+						<div class="time_div">
+							<p class="time_p">На часах у нас</p>
+							<div class="time_mini_div">
+								<i class="fa-regular fa-clock"></i>
+								<p class="time_show" id="time_now_show">time</p>
+							</div>
+						</div>
+						<div class="time_div">
+							<p class="time_p">А сегодня у нас</p>
+							<div class="time_mini_div">
+								<i class="fa-regular fa-calendar"></i>
+								<p class="time_show" id="date_now_show">date</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="observation div_main_all">
+					<div class="observation_mini_div">
+						<h3 class="observation_h">Наблюдение</h3>
+						<p class="observation_create obs_p">Больше всего задач Вы <a onclick="add_task_btn_event_handler()" href="#" class="add_tasker">создаете</a> в Понедельник</p>
+						<p class="observation_complete obs_p">Больше всего задач Вы завершаете во Вторник</p>
+					</div>
+				</div>
+				<div class="day_fact div_main_all">
+					<div class="day_fact_mini_div">
+						<h3 class="day_fact_h">Факт дня</h3>
+						<p class="day_fact_p">Человек, который просыпается в 6 утра, по статистике, закрывает все задачи к 18:00 вечера.
+							<br>Попробуем также 🤔?</p>
+					</div>
+				</div>
+				<div class="graphic div_main_all">
+					
+				</div>
+            </div> <!--  END OF SECOND COLUMN -->
+        </section>
+    </section>
+	<script src="/script.js"></script>
+</body>
+</html>
