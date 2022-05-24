@@ -95,31 +95,30 @@
 	<!-- КОНЕЦ ПОП_АПОВ -->
   	<aside class="aside">
         <nav class="nav">
-            <section>
+            <div class="nav_topper">
                 <div class="logo_wrapper"><img src="./img/logo.svg" alt="logo"></div>
                 <h1 class="logo_h">Tasks<br>Book</h1>
-			</section>
-            <section class="categories_wrapper">
-                <h2 class="nav_subt">Категории</h2>
-
-                <ul class="categories_list">
-                    <li class="active"><a href="#"><i class="fa-solid fa-house pad-right-10"></i> Дом</a></li>
-                    <li><a href="#"><i class="fa-solid fa-people-group pad-right-10"></i>Семья</a></li>
-                    <li><a href="#"><i class="fa-solid fa-briefcase pad-right-10"></i>Работа</a></li>
-                    <li><a href="#"><i class="fa-solid fa-bolt pad-right-10"></i>Спорт</a></li>
-                    <li class="add_category"><a href="#"><i class="fa-solid fa-square-plus pad-right-10"></i> Добавить</a></li>
-                </ul>
-            </section>
-            <section class="data_wrapper">
-                <h2 class="nav_subt">Данные</h2>
-                <ul class="data_list">
-                    <li><a href="#"><i class="fa-solid fa-chart-simple pad-right-10"></i>Статистика</a></li>
-                    <li><a href="#"><i class="fa-solid fa-arrow-trend-up pad-right-10"></i>Сравнить</a></li>
-                </ul>
-            </section>
-            <section>
-                <a class="nav_exit" href="#"><i class="fa-solid fa-arrow-right-to-bracket pad-right-10"></i>Выйти</a>
-            </section>
+			</div>
+			<div class="nav_category">
+				<h3 class="nav_h">Категории</h3>
+				<div class="category_wrapper">
+					<i class="fa-solid fa-house category_icon"></i>					<a href="#" class="category" data-value="home">Дом</a>
+					<i class="fa-solid fa-people-group category_icon"></i>			<a href="#" class="category" data-value="family">Семья</a>
+					<i class="fa-solid fa-briefcase category_icon"></i>				<a href="#" class="category" data-value="work">Работа</a>
+					<i class="fa-solid fa-bolt category_icon"></i>					<a href="#" class="category" data-value="sport"></a>
+					<i class="fa-regular fa-square-plus category_icon accent"></i>	<a href="#" class="category add_category" id="nav_add_category">Добавить</a>
+				</div>
+			</div>
+			<div class="nav_data">
+				<h3 class="nav_h">Данные</h3>
+				<div class="data_wrapper">
+					<i class="fa-solid fa-chart-simple data_icon"></i><a href="#" class="data">Статистика</a>
+					<i class="fa-solid fa-arrow-trend-up data_icon"></i><a href="#" class="data">Сравнить</a>
+				</div>
+			</div>
+			<div class="exit_wrapper">
+				<i class="fa-solid fa-right-to-bracket exit_icon"></i><a href="#" class="exit_btn">Выйти</a>
+			</div>
         </nav>
   	</aside>
     <section class="main_helper">
@@ -144,21 +143,21 @@
 							<div class="achiv_mini-div">
 									<h3 class="achiv_name">Создано</h3>
 									<div class="achiv_circle">
-											<p class="achiv_number" id="achiv_created"></p>
+											<p class="achiv_number" id="achiv_created">0</p>
 											<p class="achiv_zadach">задач</p>
 									</div>
 							</div>
 							<div class="achiv_mini-div">
 									<h3 class="achiv_name">Завершено</h3>
 									<div class="achiv_circle">
-											<p class="achiv_number" id="achiv_completed">97</p>
+											<p class="achiv_number" id="achiv_completed">0</p>
 											<p class="achiv_zadach">задач</p>
 									</div>
 							</div>
 							<div class="achiv_mini-div">
 									<h3 class="achiv_name">Удалено</h3>
 									<div class="achiv_circle">
-											<p class="achiv_number" id="achiv_deleted">14</p>
+											<p class="achiv_number" id="achiv_deleted">0</p>
 											<p class="achiv_zadach">задач</p>
 									</div>
 							</div>
