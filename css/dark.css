@@ -1,0 +1,8 @@
+:root {
+    --background-clr: #222831;
+    --secondary-clr: #F9F9F9;
+    --primary-clr: #2C3440;
+    --dark_primary-clr: #212731;
+    --task_border_clr: rgba(249, 249, 249, 0.2);
+    --secondary-clr-trn: rgba(40, 40, 70, 0.5);
+}

@@ -470,12 +470,58 @@ const editTaskHandler = (index) => {
 	})
 }
 
+
+// ТЕМЫ
+
+const Theme = (theme) =>{
+	return`
+	<link rel="stylesheet" href="./css/${theme}.css" id="theme_link">
+	`
+}
+
+const head = document.head;
+let current_theme;
+const theme_switcher = document.querySelector('#theme_change');
+
+const fillThemes = () => {
+	document.querySelector('#theme_link')!= null ? document.querySelector('#theme_link').remove() :{};
+	current_theme = JSON.parse(localStorage.getItem('theme'));
+	head.innerHTML +=Theme(current_theme);
+	if (current_theme == "dark"){
+		theme_switcher.classList.remove('fa-moon');
+		theme_switcher.classList.add('fa-sun');
+		theme_switcher.classList.add('white');
+	}
+	else if(current_theme =="light"){
+		theme_switcher.classList.remove('fa-sun');
+		theme_switcher.classList.add('fa-moon');
+		theme_switcher.classList.remove('white');
+	};
+}
+
+const fillDefaultThemes = () =>{
+	window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? current_theme = "light" : current_theme = "dark";
+	localStorage.setItem('theme', JSON.stringify(current_theme));
+	fillThemes();
+}
+
+!localStorage.theme? fillDefaultThemes() : fillThemes();
+
+theme_switcher.addEventListener('click', (e) =>{
+	e.preventDefault();
+	if (current_theme == "dark") {
+		current_theme = "light";
+	}
+	else if (current_theme == "light") current_theme = "dark";
+	localStorage.setItem('theme', JSON.stringify(current_theme));
+	fillThemes();
+})
+
 // =====
 
 // TODO(me): реализовать функционал категорий
 // TODO(me): реализовать функционал Наблюдение с отслеживанием дня недели создания задачи
 // TODO(me): реализовать Факт Дня
-// TODO(me): СМЕНА ТЕМЫ
 // TODO(me): обнуление успехов (через меню)
 // TODO(me): Удалить все задачи через меню (с подтверждением)
 // TODO(me): добавление категорий в меню, через 'Добавить' (пробовать использовать hash)

@@ -2,17 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
 
 :root {
+    color-scheme: light dark;
+
     --accent-clr: #29A19C;
     --subscribe-clr: #ECCA75;
     --delete-clr: #F05454;
 
-    --background-clr: #FAFAFA;
+    /* --background-clr: #FAFAFA;
     --secondary-clr: #282846;
     --primary-clr: #FFF;
-    --dark_primary-clr: #e2e7e3;
-    --secondary-clr-trn: rgba(40, 40, 70, 0.2);
+    --dark_primary-clr: #e2e7e3; */
+    /* --secondary-clr-trn: rgba(40, 40, 70, 0.2); */
+    /* --task_border_clr: #2828461A; */
 
-    --task_border_clr: #2828461A;
+
+    --dropdown_border-clr-trn: rgba(40, 40, 70, 0.1);
 
     --main_font: 'Nunito', sans-serif;
     --accent_font: 'Montserrat', sans-serif;
@@ -22,7 +26,7 @@ p, h1, h2, h3 {
     cursor: text;
 }
 
-html{
+html {
     box-sizing: border-box;
     font-size: 16px;
     font-family: var(--main_font);
@@ -66,7 +70,7 @@ body {
     border: none;
     padding: 10px 25px;
     border-radius: 5px;
-    color: var(--background-clr);
+    color: #FAFAFA;
     font-family: var(--main_font);
     font-size: 16px;
     font-weight: 600;
@@ -100,6 +104,11 @@ body {
 .theme_change {
     font-size: 24px;
     opacity: 0.4;
+}
+
+.theme_change.white {
+    color: #fafafa;
+    opacity: 0.85;
 }
 
 .theme_change:hover {
@@ -229,7 +238,7 @@ body {
     position: absolute;
     left: 15%;
     width: 85%;
-    height: 100vh;
+    height: 100%;
 
     justify-content: center;
     align-items: center;
@@ -244,7 +253,7 @@ body {
     grid-template-columns: 1.2fr 1fr;
     column-gap: 27px;
     width: 90%;
-    height: 100vh;
+    height: 100%;
 }
 
 .column{
@@ -516,7 +525,7 @@ body {
 }
 
 .pop_up_task_body {
-    background-color: white;
+    background-color: var(--primary-clr);
     box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
     border-radius: 10px;
     display: flex;
@@ -539,7 +548,8 @@ body {
 }
 
 .pop_up_task_create_description {
-    border: 1px solid rgba(40, 40, 70, 0.1);
+    border: 1px solid var(--dropdown_border-clr-trn);
+    background-color: #FAFAFA;
     border-radius: 8px;
     padding: 8px 15px;
     color: var(--secondary-clr-trn);
@@ -583,9 +593,10 @@ body {
 
 .pop_up_create_task_date {
     padding: 4px 15px;
-    border: 1px solid rgba(40, 40, 70, 0.1);
+    border: 1px solid var(--dropdown_border-clr-trn);
     border-radius: 8px;
-
+    background-color: #fafafa;
+    color: var(--secondary-clr-trn);
 }
 
 .dropdown {
@@ -593,17 +604,17 @@ body {
 }
 
 .dropdown__button {
-    border: 1px solid var(--secondary-clr-trn);
+    border: 1px solid var(--dropdown_border-clr-trn);
     border-radius: 6px;
     padding: 5px 40px 5px 15px;
     outline: none;
-    background-color: transparent;
+    background-color: #fafafa;
     cursor: pointer;
 	text-align: left;
 
     min-width: 170px;
 
-    color: var(--secondary-clr);
+    color: var(--secondary-clr-trn);
 }
 
 .dropdown__button:focus, .dropdown__button--active {
@@ -683,7 +694,7 @@ body {
     padding: 10px 25px;
     background-color: var(--accent-clr);
     border: none;
-    color: var(--background-clr);
+    color: #fafafa;
 }
 
 .danger_btn {
@@ -691,7 +702,7 @@ body {
     border-radius: 8px;
     border: none;
     padding: 10px 25px;
-    color: var(--background-clr);
+    color: #fafafa;
 }
 
 .secondary_btn {
@@ -711,10 +722,14 @@ button:hover {
 }
 
 .task_descr-focused {
-    color: var(--secondary-clr);
+    color: #000000;
 }
 
 .pop_up_task_create_description:focus, .pop_up_create_task_date:focus {
     outline: none;
     box-shadow: 0px 0px 0px 2px rgba(176, 198, 225, 0.6);
+}
+
+.pad-right-10 {
+    padding-right: 10px;
 }
