@@ -4,17 +4,10 @@
 :root {
     color-scheme: light dark;
 
+
     --accent-clr: #29A19C;
     --subscribe-clr: #ECCA75;
     --delete-clr: #F05454;
-
-    /* --background-clr: #FAFAFA;
-    --secondary-clr: #282846;
-    --primary-clr: #FFF;
-    --dark_primary-clr: #e2e7e3; */
-    /* --secondary-clr-trn: rgba(40, 40, 70, 0.2); */
-    /* --task_border_clr: #2828461A; */
-
 
     --dropdown_border-clr-trn: rgba(40, 40, 70, 0.1);
 
@@ -32,17 +25,36 @@ html {
     font-family: var(--main_font);
     font-weight: 400;
     font-style: normal;
-    color: var(--secondary-clr);
 }
 
 body {
     line-height: 1.35;
     letter-spacing: 0.02em;
     background-color: var(--background-clr);
-
+    color: var(--secondary-clr);
     display: flex;
     flex-direction: row;
     width: 100%;
+
+    transition: 0.3s;
+}
+
+.dark {
+    --background-clr: #222831;
+    --secondary-clr: #F9F9F9;
+    --primary-clr: #2C3440;
+    --dark_primary-clr: #212731;
+    --task_border_clr: rgba(249, 249, 249, 0.2);
+    --secondary-clr-trn: rgba(40, 40, 70, 0.5);
+}
+
+.light {
+    --background-clr: #FAFAFA;
+    --secondary-clr: #282846;
+    --primary-clr: #FFF;
+    --dark_primary-clr: #e2e7e3;
+    --task_border_clr: rgba(40, 40, 70, 0.1);
+    --secondary-clr-trn: rgba(0, 0, 0, 0.5);
 }
 
 *,
@@ -102,17 +114,22 @@ body {
 }
 
 .theme_change {
+    transition: 0.2s;
     font-size: 24px;
     opacity: 0.4;
 }
 
 .theme_change.white {
     color: #fafafa;
-    opacity: 0.85;
+    opacity: 0.8;
 }
 
 .theme_change:hover {
     cursor: pointer;
+}
+
+.theme_change.white:hover{
+    opacity: 1;
 }
 
 .pr_ic {

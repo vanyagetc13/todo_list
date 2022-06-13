@@ -472,30 +472,26 @@ const editTaskHandler = (index) => {
 
 
 // ТЕМЫ
-
-const Theme = (theme) =>{
-	return`
-	<link rel="stylesheet" href="./css/${theme}.css" id="theme_link">
-	`
-}
-
 const head = document.head;
 let current_theme;
 const theme_switcher = document.querySelector('#theme_change');
 
 const fillThemes = () => {
-	document.querySelector('#theme_link')!= null ? document.querySelector('#theme_link').remove() :{};
 	current_theme = JSON.parse(localStorage.getItem('theme'));
-	head.innerHTML +=Theme(current_theme);
+	const body = document.querySelector('body');
 	if (current_theme == "dark"){
 		theme_switcher.classList.remove('fa-moon');
 		theme_switcher.classList.add('fa-sun');
 		theme_switcher.classList.add('white');
+		body.classList.add('dark')
+		body.classList.remove('light')
 	}
 	else if(current_theme =="light"){
 		theme_switcher.classList.remove('fa-sun');
 		theme_switcher.classList.add('fa-moon');
 		theme_switcher.classList.remove('white');
+		body.classList.remove('dark')
+		body.classList.add('light')
 	};
 }
 
