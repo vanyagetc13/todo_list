@@ -60,14 +60,14 @@ const labels = [
 const data = {
 labels: labels,
 datasets: [{
-	label: 'Задач создано',
-	data: [],
-	borderColor: 'rgba(41,161,156,0.4)',
-	borderWidth: 3,
-	backgroundColor: 'rgba(41,161,156,0.6)',
-	fill: false,
-	radius: 4,
-	tension: 0.4
+		label: 'Задач создано',
+		data: [],
+		borderColor: 'rgba(41,161,156,0.4)',
+		borderWidth: 3,
+		backgroundColor: 'rgba(41,161,156,0.6)',
+		fill: false,
+		radius: 4,
+		tension: 0.4
 	},
 	{
 		label: 'Задач выполнено',
