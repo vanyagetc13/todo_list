@@ -162,14 +162,16 @@ function UpdateTheChart (chart) {
 	}
 	dataSets[0].data.push(weekdays.created[0])
 	dataSets[1].data.push(weekdays.completed[0])
-	let max1 = 15;
-	let max2 = 15;
+	let max1 = 14;
+	let max2 = 14;
 	for(let i = 0; i < 7; i++){
 		if (dataSets[0].data[i] > max1) max1 = dataSets[0].data[i];
 		if (dataSets[1].data[i] > max2) max2 = dataSets[1].data[i];
 	}
 	const maxCount = max1 > max2 ? max1 : max2;
-	chart.options.scales.y.max = maxCount + 10 - maxCount % 10;
+	chart.options.scales.y.max = 	maxCount >= 15 ?
+									maxCount + 10 - maxCount % 10 :
+									15;
 	chart.update();
 }
 // =================================================================================
