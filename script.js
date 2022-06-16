@@ -1,12 +1,8 @@
 // =================================================================================
 // Время и дата
 // =================================================================================
-
-
 const time_show = document.querySelector('#time_now_show');
-
 const date_show = document.querySelector('#date_now_show');
-
 
 const monthes = [
     'января',
@@ -27,7 +23,6 @@ function TimeUpdate(){
     let timer = new Date();
     const utc_time = timer.toTimeString();
     time_show.innerHTML = utc_time.slice(0,8);
-    delete timer, utc_time;
 };
 
 function DateUpdate(){
@@ -36,7 +31,6 @@ function DateUpdate(){
     const month = dater.getMonth();
     const year = dater.getFullYear();
     date_show.innerHTML = `${day} ${monthes[month]} ${year}`;
-    delete dater, day, month, year;
 };
 
 TimeUpdate();
@@ -46,6 +40,138 @@ setInterval(()=>{
     DateUpdate();
 }, 1000)
 
+// График
+const UseSmallMobile = (w) => {
+	if (w< 375) return true
+	else return false
+}
+const aspectGraph = !UseSmallMobile(window.innerWidth);
+
+const ctx = document.getElementById('graphic').getContext('2d');
+const labels = [
+	'пн',
+	'вт',
+	'ср',
+	'чт',
+	'пт',
+	'сб',
+	'вс'
+];
+const data = {
+labels: labels,
+datasets: [{
+	label: 'Задач создано',
+	data: [],
+	borderColor: 'rgba(41,161,156,0.4)',
+	borderWidth: 3,
+	backgroundColor: 'rgba(41,161,156,0.6)',
+	fill: false,
+	radius: 4,
+	tension: 0.4
+	},
+	{
+		label: 'Задач выполнено',
+		data: [],
+		borderColor: '#29A19C',
+		borderWidth: 3,
+		backgroundColor: '#29A19C',
+		fill: false,
+		radius: 5,
+		tension: 0.35
+	}
+]
+};
+const config = {
+	type: 'line',
+	data: data,
+	options: {
+		responsive: true,
+		maintainAspectRatio: aspectGraph,
+		plugins: {
+			title: {
+				display: false
+			},
+			legend: {
+				position: 'bottom',
+				onClick: ''
+			}
+		},
+		interaction: {
+			intersect: false
+		},
+		scales: {
+			x: {
+				display: true,
+				grid: {
+					color: 'rgb(220, 220, 220)'
+				}
+			},
+			y: {
+				display: true,
+				beginAtZero: true,
+				grid: {
+					color: 'rgb(200, 200, 200)'
+				},
+				max: 15,
+				ticks: {
+					maxTicksLimit: 5,
+				}
+			}				
+		}
+	}
+};
+
+const graph = new Chart(ctx, config);
+
+function UpdateTheChart (chart) {
+	chart.data.datasets[0].data = [];
+	chart.data.datasets[1].data = [];
+	const temp_tasks = tasks;
+	const week = 1000*60*60*24*7;
+	const weekdays = {
+		created: {
+			0: 0,
+			1: 0,
+			2: 0,
+			3: 0,
+			4: 0,
+			5: 0,
+			6: 0
+		},
+		completed: {
+			0: 0,
+			1: 0,
+			2: 0,
+			3: 0,
+			4: 0,
+			5: 0,
+			6: 0
+		}
+	}
+	const now = Date.now();
+	temp_tasks.forEach((task) =>{
+		const dofc = Date.parse(task.date_of_creation);
+		const dofcomp = Date.parse(task.date_of_completion);
+		if((now-dofc) < week) weekdays.created[new Date(dofc).getDay()]++
+		if(now-dofcomp < week) weekdays.completed[(new Date(dofcomp)).getDay()]++
+	})
+	const dataSets = chart.data.datasets;
+	for(let i = 1;i<7;i++){
+		dataSets[0].data.push(weekdays.created[i])
+		dataSets[1].data.push(weekdays.completed[i])
+	}
+	dataSets[0].data.push(weekdays.created[0])
+	dataSets[1].data.push(weekdays.completed[0])
+	let max1 = 15;
+	let max2 = 15;
+	for(let i = 0; i < 7; i++){
+		if (dataSets[0].data[i] > max1) max1 = dataSets[0].data[i];
+		if (dataSets[1].data[i] > max2) max2 = dataSets[1].data[i];
+	}
+	const maxCount = max1 > max2 ? max1 : max2;
+	chart.options.scales.y.max = maxCount + 10 - maxCount % 10;
+	chart.update();
+}
 // =================================================================================
 // ДРОПДАУНЫ
 // =================================================================================
@@ -53,7 +179,7 @@ setInterval(()=>{
 if (window.NodeList && !NodeList.prototype.forEach) {
 	NodeList.prototype.forEach = function (callback, thisArg) {
 		thisArg = thisArg || window;
-		for (var i = 0; i < this.length; i++) {
+		for (let i = 0; i < this.length; i++) {
 			callback.call(thisArg, this[i], i, this);
 		}
 	};
@@ -76,6 +202,16 @@ const task_template = (task, index) =>{
 	`
 }
 
+const ClientHasNoTasksYet = (bool) => {
+	return `
+		<p class="no_tasks">
+			${bool ?
+			'У Вас нет активных задач, <a onclick="add_task_btn_event_handler()" href="#" class="add_tasker">создайте</a> одну.':
+			'Вы еще не завершили ни одной задачи.'}
+		</p>
+	`
+}
+
 function dropdown__reset() {
 	document.querySelectorAll('.dropdown').forEach(function (dropDownWrapper) {
 		const dropDownBtn = dropDownWrapper.querySelector('.dropdown__button');
@@ -90,14 +226,6 @@ function dropdown__reset() {
 	desc_input.value = "Опишите задачу";
 	desc_input.classList.remove('task_descr-focused');
 }
-
-let task_temp = {
-	description: "",
-	completed: false,
-	category: "",
-	date_temp: "",
-	priority: ""
-};
 
 function collect_data_task_edit(index) {
 	const pop_up_task = document.querySelector("#pop_up_task_edit");
@@ -121,9 +249,16 @@ function collect_data_task_edit(index) {
 	})
 }
 
-function collect_data_task_create() {
+function TaskCreation() {
 	const pop_up_task = document.querySelector("#pop_up_task_create");
 	const input_list = pop_up_task.querySelectorAll("input[name=dropdown_task_creation]");
+	let task_temp = {
+		description: "",
+		completed: false,
+		category: "",
+		date_temp: "",
+		priority: ""
+	};
 	input_list.forEach((input)=>{
 		switch (input.id){
 			case "description_input":
@@ -141,6 +276,7 @@ function collect_data_task_create() {
 		}
 	})
 	task_temp.completed = false;
+	tasks.push(new Task(task_temp));
 }
 
 document.querySelectorAll('.dropdown').forEach(function (dropDownWrapper) {
@@ -263,6 +399,8 @@ function Task(task){
 	this.category = task.category;
 	this.date_temp = task.date_temp;
 	this.priority = task.priority;
+	this.date_of_creation = new Date;
+	this.date_of_completion = '';
 }
 
 const updateLocal = () => {
@@ -270,15 +408,29 @@ const updateLocal = () => {
 	localStorage.setItem('achivs', JSON.stringify(achivs));
 }
 
+const NumberOfAchivCheck = (achiv) => {
+	const lastNumber = achiv % 10;
+	if(lastNumber == 1) return "задача";
+	if(lastNumber > 1 && lastNumber < 5) return "задачи";
+
+	return "задач"
+}
+
 const fillTaskHTML = () => {
 	tasks_main.innerHTML = "";
 	completed_tasks_main.innerHTML = "";
+
 	achiv_completed.innerText = achivs.completed;
 	achiv_created.innerText = achivs.created;
 	achiv_deleted.innerText = achivs.deleted;
+
+	achiv_completed.parentElement.lastElementChild.innerText = NumberOfAchivCheck(achivs.completed);
+	achiv_created.parentElement.lastElementChild.innerText = NumberOfAchivCheck(achivs.created);
+	achiv_deleted.parentElement.lastElementChild.innerText = NumberOfAchivCheck(achivs.deleted);
+
 	if (tasks.length > 0){
 		tasks.forEach((item, index) => {
-			if(item.completed === true){
+			if(item.completed){
 				completed_tasks_main.innerHTML += task_template(item, index);
 			} else {
 				tasks_main.innerHTML += task_template(item, index);
@@ -319,6 +471,9 @@ const fillTaskHTML = () => {
 			});
 		})
 	}
+	if(completed_tasks_main.innerHTML == "") completed_tasks_main.innerHTML = ClientHasNoTasksYet(false);
+	if(tasks_main.innerHTML == "") tasks_main.innerHTML = ClientHasNoTasksYet(true);
+	UpdateTheChart(graph);
 }
 fillTaskHTML();
 
@@ -330,8 +485,7 @@ const close_pop_up = () => {
 
 create_task_btn.addEventListener("click", (e)=> {
 	e.preventDefault();
-	collect_data_task_create();
-	tasks.push(new Task(task_temp));
+	TaskCreation();
 	achivs.created++;
 	updateLocal();
 	fillTaskHTML();
@@ -341,8 +495,14 @@ create_task_btn.addEventListener("click", (e)=> {
 
 const inputChangeHandler = (index) => {
 	tasks[index].completed = !tasks[index].completed;
-	if (tasks[index].completed === false) achivs.completed--;
-	else achivs.completed++;
+	if (tasks[index].completed === false){
+		achivs.completed--;
+		tasks[index].date_of_completion = '';
+	}
+	else {
+		achivs.completed++;
+		tasks[index].date_of_completion = new Date();
+	}
 	updateLocal();
 	fillTaskHTML();
 }
@@ -354,7 +514,7 @@ const deleteTaskHandler = (index) => {
 	fillTaskHTML();
 }
 
-// EDIT. таски
+// EDIT таски
 function paramsValues (type, index) {
 	const f = tasks[index];
 	if (type == "priority"){
@@ -473,6 +633,7 @@ const editTaskHandler = (index) => {
 
 // ТЕМЫ
 const head = document.head;
+
 let current_theme;
 const theme_switcher = document.querySelector('#theme_change');
 

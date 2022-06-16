@@ -34,7 +34,6 @@ body {
     color: var(--secondary-clr);
     display: flex;
     flex-direction: row;
-    width: 100%;
 
     transition: 0.3s;
 }
@@ -43,13 +42,13 @@ body {
     --background-clr: #222831;
     --secondary-clr: #F9F9F9;
     --primary-clr: #2C3440;
-    --dark_primary-clr: #212731;
+    --dark_primary-clr: #1a1f27;
     --task_border_clr: rgba(249, 249, 249, 0.2);
     --secondary-clr-trn: rgba(40, 40, 70, 0.5);
 }
 
 .light {
-    --background-clr: #FAFAFA;
+    --background-clr: #f0f0f0;
     --secondary-clr: #282846;
     --primary-clr: #FFF;
     --dark_primary-clr: #e2e7e3;
@@ -68,21 +67,17 @@ body {
 }
 
 .header {
-    height: 44px;
-    padding: 40px;
-    width: 85%;
-    display:flex;
+    min-height: 60px;
+    margin: 20px;
+    width: 90%;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.add_task {
-    background-color: var(--accent-clr);
-    border: none;
-    padding: 10px 25px;
+.primary_btn.add_task {
     border-radius: 5px;
-    color: #FAFAFA;
     font-family: var(--main_font);
     font-size: 16px;
     font-weight: 600;
@@ -150,12 +145,16 @@ body {
     position: fixed;
     display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 12%;
     height: 100vh;
     overflow-x:auto;
     background-color: var(--primary-clr);
     filter: drop-shadow(0px 10px 25px
     rgba(29, 52, 54, 0.08));
+}
+
+.mobile_aside_menu{
+    display: none;
 }
 .nav {
     width: 100% - 20px;
@@ -253,9 +252,9 @@ body {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 15%;
-    width: 85%;
-    height: 100%;
+    left: 12%;
+    top: 0;
+    width: 88%;
 
     justify-content: center;
     align-items: center;
@@ -267,17 +266,18 @@ body {
 
 .main {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1.4fr 1fr;
     column-gap: 27px;
-    width: 90%;
+    width: 95%;
     height: 100%;
 }
 
-.column{
+.column {
     display:flex;
     flex-direction: column;
     width: auto;
     gap: 30px;
+    padding-bottom: 20px;
 }
 
 .div_main_all {
@@ -312,10 +312,9 @@ body {
 .achivs_main {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    gap: 57px;
+    justify-content: space-evenly;
     flex: 1 0 auto;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .achiv_mini-div {
@@ -324,6 +323,7 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    flex: 1 0 auto;
 }
 
 .achiv_name {
@@ -345,7 +345,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100px;
-    width: 100px;
+    aspect-ratio: 1;
     border: 1px solid var(--accent-clr);
     border-radius: 50%;
 }
@@ -418,7 +418,7 @@ body {
     gap: 10px;
 }
 
-.observation_h, .day_fact_h, .current_tasks_h, .completed_tasks_h {
+.observation_h, .day_fact_h, .current_tasks_h, .completed_tasks_h, .graphic>.topper>h3 {
     font-weight: 600;
     font-size: 18px;
     color: var(--accent-clr);
@@ -432,6 +432,9 @@ body {
     color: var(--accent-clr);
 }
 
+.add_tasker:hover {
+    color: var(--secondary-clr);
+}
 
 .topper {
     display: flex;
@@ -450,8 +453,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-height: 30px;
     margin: 0 20px 20px;
+}
+
+.hr {
+    --hr_clr: var(--background-clr);
+
+    height: 2px;
+    border-width: 0;
+    color: var(--hr_clr);
+    background-color: var(--hr_clr);
 }
 
 .task, .completed_task {
@@ -749,4 +760,129 @@ button:hover {
 
 .pad-right-10 {
     padding-right: 10px;
+}
+
+.graph_main {
+    display: flex;
+    justify-content: center;
+    flex: 1 0 auto;
+}
+
+.graphic_cont {
+    position: relative;
+    margin: 0 20px 20px;
+    width: 100%;
+    max-width: 580px;
+}
+
+
+
+
+
+
+
+
+/* АДАПТИВ ПОД МОБИЛЬНЫЕ УСТРОЙСВА */
+
+/* LAPTOPS */
+
+@media screen and (min-width: 769px){
+
+}
+
+/* TABLETS */
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    .aside {
+        display: none;
+    }
+
+    .main_helper {
+        position: inherit;
+        width: auto;
+    }
+}
+
+/* MOBILES */
+@media screen and (max-width: 425px) {
+    body {
+        width: 105vw;
+        height: auto;
+    }
+
+    .aside {
+        display: none;
+    }
+
+    .header {
+        width: 80%;
+        margin: 20px 0;
+    }
+
+    .main_helper {
+        position: inherit;
+        width: 100%;
+    }
+
+    .profile_good-day {
+        display: none;
+    }
+
+    .pr_ic {
+        margin-left: 10px;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .column {
+        gap: 20px;
+        padding-bottom: 0;
+    }
+
+    .column-2 {
+        padding-bottom: 20px;
+    }
+
+    .div_main_all{
+        width: 95%;
+    }
+
+    .achivs_main {
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .achiv_circle {
+        height: 75px;
+        width: 75px;
+    }
+    .achiv_number {
+        font-size: 13px;
+    }
+    .achiv_zadach {
+        font-size: 13px;
+    }
+
+    /* .topper {
+        margin: 10px;
+    } */
+
+    .time_mini_div {
+        gap: 4px;
+    }
+
+    .time_show {
+        font-size: 17px;
+    }
+
+    .primary_btn.add_task {
+        border-radius: 5px;
+        font-family: var(--main_font);
+        font-size: 16px;
+        font-weight: 600;
+        padding: 5px 12px;
+    }
 }

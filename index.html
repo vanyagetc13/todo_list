@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/fd813626e6.js" crossorigin="anonymous"></script>
-    <title>Tasks Book</title>
+	<link rel="icon" href="./img/logo.png" type="image/x-icon">
+	<title>Tasks Book</title>
 </head>
 <body>
 	<!-- Создание таски -->
@@ -124,7 +125,8 @@
   	</aside>
     <section class="main_helper">
         <header class="header">
-            <button class="add_task" id="add_task_btn"><i class="fa-solid fa-circle-plus pad-right-10"></i>Новая задача</button>
+			<button class="mobile_aside_menu"></button>
+            <button class="add_task primary_btn" id="add_task_btn"><i class="fa-solid fa-circle-plus pad-right-10"></i>Новая задача</button>
             <i class="fa-regular fa-sun theme_change" id="theme_change"></i>
             <div class="header_profile">
                 <p class="profile_good-day">Хорошего дня, Анна</p>
@@ -137,7 +139,7 @@
         <section class="main">
             <div class="column column-1">
 				<div class="weekly_achivs div_main_all">
-					<div class="achivs_topper">
+					<div class="topper">
 							<h3 class="achivs_subt">Успехи за неделю</h3>
 							<i class="fa-solid fa-ellipsis"></i>
 					</div>
@@ -175,6 +177,7 @@
 							
 						</div>
 					</div>
+					<hr class="hr">
 					<div class="completed_tasks">
 						<div class="topper"><h3 class="completed_tasks_h">Завершенные задачи</h3></div>
 						<div class="completed_tasks_main" id="completed_tasks_main">
@@ -218,11 +221,19 @@
 					</div>
 				</div>
 				<div class="graphic div_main_all">
-					
+					<div class="topper">
+						<h3>График успеваемости</h3>
+					</div>
+					<div class="graph_main">
+						<div class="graphic_cont">
+							<canvas id="graphic"></canvas>
+						</div>
+					</div>
 				</div>
             </div> <!--  END OF SECOND COLUMN -->
         </section>
     </section>
-	<script src="/script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="./script.js"></script>
 </body>
 </html>
