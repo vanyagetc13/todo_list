@@ -42,7 +42,7 @@ setInterval(()=>{
 
 // График
 const UseSmallMobile = (w) => {
-	if (w< 375) return true
+	if (w < 375) return true
 	else return false
 }
 const aspectGraph = !UseSmallMobile(window.innerWidth);
