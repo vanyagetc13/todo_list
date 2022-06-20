@@ -129,13 +129,26 @@
 				<span></span>
 			</button>
             <button class="add_task primary_btn" id="add_task_btn"><i class="fa-solid fa-circle-plus pad-right-10"></i>Новая задача</button>
-            <i class="fa-regular fa-sun theme_change" id="theme_change"></i>
+            <a href="#" class="theme_change_a"><i class="fa-regular fa-sun theme_change" id="theme_change"></i></a>
             <div class="header_profile">
                 <p class="profile_good-day">Хорошего дня, Анна</p>
                 <div class="profile_link">
-				<img class="profile_icon" src="./img/woman.png" alt="avatar">
-                <i class="fa-solid fa-chevron-down pr_ic"></i>
-			</div>
+					<a href="#profile"><img class="profile_icon" src="./img/woman.png" alt="avatar"></a>
+					<div class="toggle_menu_wrapper">
+						<button class="pr_ic_cont" id="toggle_menu_btn">
+							<i class="fa-solid fa-chevron-down pr_ic"></i>
+						</button>
+						<div class="toggle_menu_cont" id="toggle_menu">
+							<div class="toggle_menu">
+								<a href="#"><i class="fa-regular fa-user"></i><span>Личный кабинет</span></a>
+								<a href="#" id="theme_change__tm"><i class="fa-regular fa-sun"></i><span>Темный режим</span></a>
+								<a href="#"><i class="fa-solid fa-gear"></i><span>Настройки</span></a>
+								<a href="#" class="premium"><i class="fa-regular fa-star"></i><span>Премиум</span></a>
+								<a href="#"><i class="fa-solid fa-right-to-bracket exit_icon"></i><span>Выйти</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </header>
         <section class="main">
@@ -192,7 +205,9 @@
             </div> <!--  END OF FIRST COLUMN -->
             <div class="column column-2">
 				<div class="date_div div_main_all">
-					<h3 class="date_div_subt">Такс такс такс</h3>	
+					<div class="topper">
+						<h3 class="date_div_subt">Такс такс такс</h3>	
+					</div>
 					<div class="date_showers_wrapper">
 						<div class="time_div">
 							<p class="time_p">На часах у нас</p>

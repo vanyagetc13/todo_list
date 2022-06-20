@@ -41,9 +41,8 @@ setInterval(()=>{
 }, 1000)
 
 // График
-const UseSmallMobile = (w) => {
-	if (w < 375) return true
-	else return false
+const UseSmallMobile = (width) => {
+	return width <= 375 ? true : false;
 }
 const aspectGraph = !UseSmallMobile(window.innerWidth);
 
@@ -395,7 +394,7 @@ let achivs = {};
 	deleted: 0
 } : achivs = JSON.parse(localStorage.getItem('achivs'));
 
-function Task(task){
+function Task(task) {
 	this.description = task.description;
 	this.completed = task.completed;
 	this.category = task.category;
@@ -638,6 +637,7 @@ const head = document.head;
 
 let current_theme;
 const theme_switcher = document.querySelector('#theme_change');
+const tm_theme = document.querySelector('#theme_change__tm');
 
 const fillThemes = () => {
 	current_theme = JSON.parse(localStorage.getItem('theme'));
@@ -648,13 +648,23 @@ const fillThemes = () => {
 		theme_switcher.classList.add('white');
 		body.classList.add('dark')
 		body.classList.remove('light')
+
+		tm_theme.firstElementChild.classList.remove('fa-moon');
+		tm_theme.firstElementChild.classList.add('fa-sun');
+		tm_theme.firstElementChild.classList.add('white');
+		tm_theme.lastElementChild.innerText = "Светлая тема"
 	}
-	else if(current_theme =="light"){
+	else if(current_theme == "light"){
 		theme_switcher.classList.remove('fa-sun');
 		theme_switcher.classList.add('fa-moon');
 		theme_switcher.classList.remove('white');
 		body.classList.remove('dark')
 		body.classList.add('light')
+
+		tm_theme.firstElementChild.classList.remove('fa-sun')
+		tm_theme.firstElementChild.classList.add('fa-moon');
+		tm_theme.firstElementChild.classList.remove('white');
+		tm_theme.lastElementChild.innerText = "Темная тема"
 	};
 }
 
@@ -666,7 +676,7 @@ const fillDefaultThemes = () =>{
 
 !localStorage.theme? fillDefaultThemes() : fillThemes();
 
-theme_switcher.addEventListener('click', (e) =>{
+const ThemeHandler = (e) => {
 	e.preventDefault();
 	if (current_theme == "dark") {
 		current_theme = "light";
@@ -674,16 +684,55 @@ theme_switcher.addEventListener('click', (e) =>{
 	else if (current_theme == "light") current_theme = "dark";
 	localStorage.setItem('theme', JSON.stringify(current_theme));
 	fillThemes();
-})
+}
+
+theme_switcher.addEventListener('click', ThemeHandler)
+
+tm_theme.addEventListener('click', ThemeHandler)
+
+// Toggle Menu
+const toggle_menu = document.querySelector('#toggle_menu');
+const opened = 't-m__opened';
+const toggleMenu = () => {
+	toggle_menu.classList.contains(opened) ?
+		toggle_menu.classList.remove(opened) : toggle_menu.classList.add(opened);
+}
+
+const toggle_menu_btn = document.querySelector('#toggle_menu_btn');
+toggle_menu_btn.addEventListener('click', e => {
+	e.stopPropagation();
+	toggleMenu();
+
+	Array.from(toggle_menu.firstElementChild.childNodes).forEach((link, counter)=> {
+		if(counter % 2 == 1) {
+			link.addEventListener('mouseover',() => {
+				link.firstElementChild.classList.add('fa-rotate-by')
+			})
+			link.addEventListener('mouseout', () => {
+				link.firstElementChild.classList.remove('fa-rotate-by')
+			})
+		}
+	})
+
+	// Закрытие нажатием вне toggle-menu
+	document.addEventListener('click', e => {
+		const target = e.target;
+		const its_menu = target == toggle_menu || toggle_menu.contains(target);
+		const its_hamburger = target == toggle_menu_btn || toggle_menu_btn.contains(target);
+		if(!its_hamburger && !its_menu && toggle_menu.classList.contains(opened)) {
+			toggleMenu()
+		}
+	})
+});
 
 // =====
 
 // TODO(me): реализовать функционал категорий
+// TODO(me): добавление категорий в меню, через 'Добавить'
+
 // TODO(me): реализовать функционал Наблюдение с отслеживанием дня недели создания задачи
 // TODO(me): реализовать Факт Дня
-// TODO(me): обнуление успехов (через меню)
-// TODO(me): Удалить все задачи через меню (с подтверждением)
-// TODO(me): добавление категорий в меню, через 'Добавить' (пробовать использовать hash)
+
 // TODO(me): РЕАЛИЗОВАТЬ СИСТЕМУ АККАУНТА
 
 // =====
